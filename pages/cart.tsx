@@ -4,35 +4,16 @@ import {
   HStack,
   IconButton,
   Image,
-  Stack,
   StackItem,
   Text,
 } from "@chakra-ui/react";
+import { observer } from "mobx-react-lite";
 import type { NextPage } from "next";
 import Head from "next/head";
+import { useRootStore } from "../stores/RootStoreProvider";
 
-const cartitems = [
-  {
-    name: "Product 1",
-    price: 10,
-    quantity: 1,
-    image: "https://picsum.photos/200",
-  },
-  {
-    name: "Product 2",
-    price: 20,
-    quantity: 2,
-    image: "https://picsum.photos/200",
-  },
-  {
-    name: "Product 3",
-    price: 30,
-    quantity: 3,
-    image: "https://picsum.photos/200",
-  },
-];
-
-const Cart: NextPage = () => {
+const Cart: NextPage = observer(() => {
+  const store = useRootStore();
   return (
     <>
       <Head>
@@ -55,7 +36,7 @@ const Cart: NextPage = () => {
           <Text>Total</Text>
         </StackItem>
       </HStack>
-      {cartitems.map((item, index) => (
+      {store.cart.map((item, index) => (
         <HStack key={item.name} m="4">
           <StackItem flex={1}>
             <Text>{index + 1}</Text>
@@ -71,9 +52,17 @@ const Cart: NextPage = () => {
           </StackItem>
           <StackItem flex={2}>
             <HStack>
-              <IconButton aria-label="Decrease Quantity" icon={<MinusIcon />} />
+              <IconButton
+                onClick={item.decrement}
+                aria-label="Decrease Quantity"
+                icon={<MinusIcon />}
+              />
               <Text>{item.quantity}</Text>
-              <IconButton aria-label="Increase Quantity" icon={<AddIcon />} />
+              <IconButton
+                onClick={item.increment}
+                aria-label="Increase Quantity"
+                icon={<AddIcon />}
+              />
             </HStack>
           </StackItem>
           <StackItem flex={2}>
@@ -83,12 +72,11 @@ const Cart: NextPage = () => {
       ))}
       <Flex m="4" justify="center">
         <StackItem>
-          <Text>Grand Total: $ 0000</Text>
+          <Text>Grand Total: $ {store.grandTotal}</Text>
         </StackItem>
       </Flex>
     </>
   );
-  cartitems;
-};
+});
 
 export default Cart;

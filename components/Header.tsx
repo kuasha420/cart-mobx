@@ -13,6 +13,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { MdShoppingCart } from "react-icons/md";
+import CartBadge from "./CartBadge";
 import NavLink from "./NavLink";
 
 const Header = () => (
@@ -31,10 +32,7 @@ const Header = () => (
       <Flex alignItems="center">
         <Menu>
           <MenuButton rounded="full" cursor="pointer" minW={0}>
-            <HStack>
-              <Icon as={MdShoppingCart} />
-              <Badge colorScheme="purple">0</Badge>
-            </HStack>
+            <CartBadge />
           </MenuButton>
           <MenuList>
             <MenuItem>View Cart</MenuItem>

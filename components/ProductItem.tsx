@@ -8,6 +8,7 @@ import {
   StackItem,
   Text,
 } from "@chakra-ui/react";
+import AddToCartButton from "./AddToCartButton";
 
 export interface ProductItemProps {
   name: string;
@@ -46,9 +47,7 @@ const ProductItem = ({
       </HStack>
     </StackItem>
     <StackItem>
-      <Button colorScheme="blue" variant="outline">
-        Add to Cart
-      </Button>
+      <AddToCartButton image={image} name={name} price={price} />
     </StackItem>
   </Stack>
 );
