@@ -1,4 +1,4 @@
-import { types } from "mobx-state-tree";
+import { applySnapshot, flow, getSnapshot, types } from "mobx-state-tree";
 import CartItem from "./cart-item";
 
 const RootStore = types
@@ -24,6 +24,29 @@ const RootStore = types
       if (index > -1) {
         self.cart.splice(index, 1);
       }
+    },
+    clearCart() {
+      self.cart.clear();
+    },
+    hydrateFromServer: flow(function* hydrateFromServer() {
+      try {
+        const res = yield fetch("/api/cart");
+        if (res.ok) {
+          const data = yield res.json();
+          applySnapshot(self, data);
+        }
+      } catch (error) {
+        console.log("error", error);
+      }
+    }),
+    saveCartToServer() {
+      fetch("/api/cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(getSnapshot(self)),
+      });
     },
   }))
   .views((self) => ({

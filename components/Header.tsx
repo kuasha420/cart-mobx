@@ -30,16 +30,7 @@ const Header = () => (
         </HStack>
       </HStack>
       <Flex alignItems="center">
-        <Menu>
-          <MenuButton rounded="full" cursor="pointer" minW={0}>
-            <CartBadge />
-          </MenuButton>
-          <MenuList>
-            <MenuItem>View Cart</MenuItem>
-            <MenuDivider />
-            <MenuItem>Clear Cart</MenuItem>
-          </MenuList>
-        </Menu>
+        <CartBadge />
       </Flex>
     </Flex>
   </Box>

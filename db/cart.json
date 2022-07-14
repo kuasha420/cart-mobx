@@ -1,0 +1,40 @@
+{
+  "cart": [
+    {
+      "name": "Berry",
+      "image": "/fruit/berry.jpg",
+      "price": 90,
+      "quantity": 1
+    },
+    {
+      "name": "Banana",
+      "image": "/fruit/banana.jpg",
+      "price": 100,
+      "quantity": 1
+    },
+    {
+      "name": "Apple",
+      "image": "/fruit/apple.jpg",
+      "price": 90,
+      "quantity": 1
+    },
+    {
+      "name": "Orange",
+      "image": "/fruit/orange.jpg",
+      "price": 100,
+      "quantity": 1
+    },
+    {
+      "name": "Mango",
+      "image": "/fruit/mango.jpg",
+      "price": 90,
+      "quantity": 1
+    },
+    {
+      "name": "Lychee",
+      "image": "/fruit/lychee.jpg",
+      "price": 100,
+      "quantity": 1
+    }
+  ]
+}
