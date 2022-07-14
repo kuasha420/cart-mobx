@@ -11,15 +11,11 @@ import {
 import { observer } from "mobx-react-lite";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useEffect } from "react";
 import { MdDelete } from "react-icons/md";
 import { useRootStore } from "../stores/RootStoreProvider";
 
 const Cart: NextPage = observer(() => {
   const store = useRootStore();
-  useEffect(() => {
-    store.hydrateFromServer();
-  }, []);
   return (
     <>
       <Head>
@@ -86,13 +82,6 @@ const Cart: NextPage = observer(() => {
       <Flex m="4" justify="center">
         <StackItem>
           <Text>Grand Total: $ {store.grandTotal}</Text>
-        </StackItem>
-      </Flex>
-      <Flex m="4" justify="center">
-        <StackItem>
-          <Button onClick={store.saveCartToServer} colorScheme="green">
-            Save Cart to Server
-          </Button>
         </StackItem>
       </Flex>
       <Flex m="4" justify="center">
