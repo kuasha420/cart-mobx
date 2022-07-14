@@ -15,8 +15,6 @@ import {
 import { MdShoppingCart } from "react-icons/md";
 import NavLink from "./NavLink";
 
-const Links = ["Home", "Cart"];
-
 const Header = () => (
   <Box bg="gray.100" px={4} pos="sticky" top="0">
     <Flex h={16} alignItems="center" justifyContent="space-between">
@@ -26,9 +24,8 @@ const Header = () => (
           <Text>Mobx Example</Text>
         </HStack>
         <HStack as="nav" spacing={4} display={{ base: "none", md: "flex" }}>
-          {Links.map((link) => (
-            <NavLink key={link}>{link}</NavLink>
-          ))}
+          <NavLink href="/">Home</NavLink>
+          <NavLink href="/cart">Cart</NavLink>
         </HStack>
       </HStack>
       <Flex alignItems="center">
