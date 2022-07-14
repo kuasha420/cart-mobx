@@ -1,9 +1,10 @@
+import { Instance } from "mobx-state-tree";
 import { createContext, ReactNode, useContext } from "react";
 import RootStore from "./root-store";
 
-const rootStore = new RootStore();
+const rootStore = RootStore.create();
 
-const RootStoreContext = createContext<RootStore | null>(null);
+const RootStoreContext = createContext<Instance<typeof RootStore> | null>(null);
 
 export const RootStoreProvider = ({ children }: { children: ReactNode }) => {
   return (

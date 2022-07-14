@@ -1,40 +1,26 @@
-import { makeAutoObservable } from "mobx";
-import RootStore from "./root-store";
+import { types } from "mobx-state-tree";
 
-export default class CartItem {
-  // Root Store
-  rootStore: RootStore;
+const CartItem = types
+  .model("CartItem", {
+    name: types.identifier,
+    image: types.string,
+    price: types.number,
+    quantity: types.number,
+  })
+  .actions((self) => ({
+    increment() {
+      self.quantity++;
+    },
+    decrement() {
+      if (self.quantity > 1) {
+        self.quantity--;
+      }
+    },
+  }))
+  .views((self) => ({
+    get total() {
+      return self.price * self.quantity;
+    },
+  }));
 
-  // Observables
-  name: string;
-  image: string;
-  price: number;
-  quantity: number;
-
-  // Actions
-  increment = () => this.quantity++;
-
-  decrement = () => this.quantity--;
-
-  remove = () => this.rootStore.removeFromCart(this.name);
-
-  // Computed
-  get total() {
-    return this.price * this.quantity;
-  }
-
-  constructor(
-    rootStore: RootStore,
-    name: string,
-    image: string,
-    price: number,
-    quantity?: number
-  ) {
-    makeAutoObservable(this);
-    this.rootStore = rootStore;
-    this.name = name;
-    this.image = image;
-    this.price = price;
-    this.quantity = quantity ?? 1;
-  }
-}
+export default CartItem;

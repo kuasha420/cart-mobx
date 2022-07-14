@@ -10,6 +10,7 @@ import {
 import { observer } from "mobx-react-lite";
 import type { NextPage } from "next";
 import Head from "next/head";
+import { MdDelete } from "react-icons/md";
 import { useRootStore } from "../stores/RootStoreProvider";
 
 const Cart: NextPage = observer(() => {
@@ -66,7 +67,14 @@ const Cart: NextPage = observer(() => {
             </HStack>
           </StackItem>
           <StackItem flex={2}>
-            <Text>$ {item.price * item.quantity}</Text>
+            <HStack>
+              <Text>$ {item.total}</Text>
+              <IconButton
+                onClick={() => store.removeFromCart(item.name)}
+                aria-label="Remove"
+                icon={<MdDelete />}
+              />
+            </HStack>
           </StackItem>
         </HStack>
       ))}

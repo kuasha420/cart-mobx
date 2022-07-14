@@ -1,36 +1,38 @@
-import { makeAutoObservable } from "mobx";
+import { types } from "mobx-state-tree";
 import CartItem from "./cart-item";
 
-export default class RootStore {
-  cart: CartItem[];
+const RootStore = types
+  .model("RootStore", {
+    cart: types.array(CartItem),
+  })
+  .actions((self) => ({
+    addToCart(name: string, image: string, price: number, quantity?: number) {
+      const item = self.cart.find((item) => item.name === name);
+      if (item) {
+        item.increment();
+      } else {
+        self.cart.push({
+          name,
+          image,
+          price,
+          quantity: quantity ?? 1,
+        });
+      }
+    },
+    removeFromCart(name: string) {
+      const index = self.cart.findIndex((item) => item.name === name);
+      if (index > -1) {
+        self.cart.splice(index, 1);
+      }
+    },
+  }))
+  .views((self) => ({
+    get grandTotal() {
+      return self.cart.reduce((total, item) => total + item.total, 0);
+    },
+    get totalItems() {
+      return self.cart.reduce((total, item) => total + item.quantity, 0);
+    },
+  }));
 
-  addToCart(name: string, image: string, price: number, quantity?: number) {
-    console.log(`${name} added to cart`);
-    const item = this.cart.find((item) => item.name === name);
-    if (item) {
-      item.increment();
-    } else {
-      this.cart.push(new CartItem(this, name, image, price, quantity));
-    }
-  }
-
-  removeFromCart(name: string) {
-    const itemIndex = this.cart.findIndex((item) => item.name === name);
-    if (itemIndex > -1) {
-      this.cart.splice(itemIndex, 1);
-    }
-  }
-
-  get grandTotal() {
-    return this.cart.reduce((total, item) => total + item.total, 0);
-  }
-
-  get totalItems() {
-    return this.cart.reduce((total, item) => total + item.quantity, 0);
-  }
-
-  constructor() {
-    makeAutoObservable(this);
-    this.cart = [];
-  }
-}
+export default RootStore;
